@@ -159,40 +159,6 @@ Console.WriteLine($"Liczba tur z maksimum: {maxLicznik}");
 Console.WriteLine($"Pierwsza tura bez złota: {wynZero}");
 */
 //Zadanie 5
-/*
-List<string> przedmioty = new List<string>
-{
-    "Miecz",
-    "Tarcza",
-    "Mikstura",
-    "Klucz"
-};
-foreach (string przedmiot in przedmioty)
-{
-    Console.WriteLine($"{przedmioty.IndexOf(przedmiot) + 1}. {przedmiot}");
-}
-
-bool petla = true;
-string usuwanie = "";
-
-while (petla)
-{
-    string usuwanie = Console.ReadLine()!;
-    foreach (string przedmiot in przedmioty)
-    {
-        if (usuwanie == przedmiot)
-        {
-            petla = false;
-            break;
-        }
-    }
-}
-
-przedmioty.Add(usuwanie);
-// Dokończyć
-*/
-// Zadanie 6
-/*
 Dictionary<string, int> magazyn = new Dictionary<string, int>
 {
     { "Mikstura", 3 },
@@ -200,28 +166,117 @@ Dictionary<string, int> magazyn = new Dictionary<string, int>
     { "Klucz", 1 }
 };
 
-int zloto = 5;
-
-while (true)
+bool dziala = true;
+while (dziala)
 {
-    Console.WriteLine("=================");
-    Console.WriteLine("|    MENU\t|");
-    Console.WriteLine("=================");
-    Console.WriteLine("|    SHOP\t|");
-    foreach (KeyValuePair<string, int> mag in magazyn)
+    Console.WriteLine("\n=== MAGAZYN ===");
+    Console.WriteLine("1 - Pokaż magazyn");
+    Console.WriteLine("2 - Przyjmij dostawę");
+    Console.WriteLine("3 - Wydaj przedmiot");
+    Console.WriteLine("4 - Usuń pustą pozycję");
+    Console.WriteLine("5 - Zakończ");
+    Console.Write("Wybierz opcję: ");
+    string opcja = Console.ReadLine()!;
+
+    switch (opcja)
     {
-        Console.WriteLine($"|{mag.Key}: {mag.Value}\t|");
+        case "1":
+            if (magazyn.Count == 0)
+            {
+                Console.WriteLine("Magazyn jest całkowicie pusty.");
+            }
+            else
+            {
+                Console.WriteLine("Stan magazynu:");
+                foreach (KeyValuePair<string, int> pozycja in magazyn)
+                {
+                    Console.WriteLine($"- {pozycja.Key}: {pozycja.Value} szt.");
+                }
+            }
+            break;
+
+        case "2":
+            Console.Write("Podaj nazwę przedmiotu do dostawy: ");
+            string nazwaDostawy = Console.ReadLine()!;
+            Console.Write("Podaj ilość (liczba dodatnia): ");
+            int iloscDostawy;
+            if (int.TryParse(Console.ReadLine()!, out iloscDostawy) && iloscDostawy > 0)
+            {
+                if (magazyn.ContainsKey(nazwaDostawy))
+                {
+                    magazyn[nazwaDostawy] += iloscDostawy;
+                }
+                else
+                {
+                    magazyn.Add(nazwaDostawy, iloscDostawy);
+                }
+                Console.WriteLine($"Przyjęto dostawę: {nazwaDostawy} (+{iloscDostawy}). Aktualny stan: {magazyn[nazwaDostawy]}");
+            }
+            else
+            {
+                Console.WriteLine("Odrzucono: ilość musi być dodatnią liczbą całkowitą!");
+            }
+            break;
+
+        case "3":
+            Console.Write("Podaj nazwę przedmiotu do wydania: ");
+            string nazwaWydania = Console.ReadLine()!;
+            if (!magazyn.ContainsKey(nazwaWydania))
+            {
+                Console.WriteLine("Odrzucono: Brak takiego przedmiotu w magazynie.");
+                break;
+            }
+
+            Console.Write($"Podaj ilość do wydania (dostępne {magazyn[nazwaWydania]}): ");
+            int iloscWydania;
+            if (int.TryParse(Console.ReadLine()!, out iloscWydania) && iloscWydania > 0)
+            {
+                if (magazyn[nazwaWydania] >= iloscWydania)
+                {
+                    magazyn[nazwaWydania] -= iloscWydania;
+                    Console.WriteLine($"Wydano {iloscWydania} szt. {nazwaWydania}. Pozostało: {magazyn[nazwaWydania]}");
+                }
+                else
+                {
+                    Console.WriteLine("Odrzucono: Niewystarczająca liczba sztuk w magazynie.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Odrzucono: ilość musi być dodatnią liczbą całkowitą.");
+            }
+            break;
+
+        case "4":
+            Console.Write("Podaj nazwę pozycji do usunięcia: ");
+            string nazwaUsuwana = Console.ReadLine()!;
+            if (!magazyn.ContainsKey(nazwaUsuwana))
+            {
+                Console.WriteLine("Odrzucono: Taka pozycja nie istnieje w magazynie.");
+            }
+            else if (magazyn[nazwaUsuwana] == 0)
+            {
+                magazyn.Remove(nazwaUsuwana);
+                Console.WriteLine($"Pozycja '{nazwaUsuwana}' została usunięta z magazynu.");
+            }
+            else
+            {
+                Console.WriteLine($"Odrzucono: Nie można usunąć pozycji ze stanem większym niż 0 (stan: {magazyn[nazwaUsuwana]}).");
+            }
+            break;
+
+        case "5":
+            dziala = false;
+            Console.WriteLine("Koniec pracy magazynu.");
+            break;
+
+        default:
+            Console.WriteLine("Błędna opcja, wybierz 1-5.");
+            break;
     }
-    Console.WriteLine("=================");
-    string przedmiot = Console.ReadLine()!;
-    if (magazyn.ContainsKey(przedmiot))
-    {
-        zloto -= magazyn[przedmiot];
-        magazyn.Remove(przedmiot);
-        }
 }
 // Dokończyć
-*/
+
 // Zadanie 7
 /*
 List<string> historia = new List<string>();
@@ -261,4 +316,4 @@ while (true)
 */
 //Wdomu
 // Zadanie 8
-// Zadanie 9 
+// Zadanie 9
