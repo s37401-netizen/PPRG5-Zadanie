@@ -159,6 +159,40 @@ Console.WriteLine($"Liczba tur z maksimum: {maxLicznik}");
 Console.WriteLine($"Pierwsza tura bez złota: {wynZero}");
 */
 //Zadanie 5
+/*
+List<string> przedmioty = new List<string>
+{
+    "Miecz",
+    "Tarcza",
+    "Mikstura",
+    "Klucz"
+    
+};
+
+for (int i = 0; i < przedmioty.Count; i++)
+{
+    Console.WriteLine($"{i + 1}. {przedmioty[i]}");
+}
+
+int liczba;
+
+do
+{
+    Console.Write("Podaj numer przedmiotu ktory chcesz usunac:  ");
+} while (!int.TryParse(Console.ReadLine(), out liczba) && (liczba < 1 || liczba > przedmioty.Count));
+
+int indeks = liczba - 1;
+
+Console.WriteLine($"Usunięto: {przedmioty[indeks]}");
+przedmioty.RemoveAt(indeks);
+
+for (int i = 0; i < przedmioty.Count; i++)
+{
+    Console.WriteLine($"{i + 1}. {przedmioty[i]}");
+}
+*/
+//Zadanie 6
+/*
 Dictionary<string, int> magazyn = new Dictionary<string, int>
 {
     { "Mikstura", 3 },
@@ -275,18 +309,23 @@ while (dziala)
             break;
     }
 }
-// Dokończyć
-
+*/
 // Zadanie 7
 /*
 List<string> historia = new List<string>();
+bool zakonczyc = false;
 
-while (true)
+while (!zakonczyc)
 {
     Console.WriteLine("1 - Eksploruj\n2 - Odpocznij\n3 - Znajdź przedmiot\n4 - Pokaż całą historię\n5 - Pokaż ostatnie trzy wpisy\n6 - Policz wybraną akcję\n7 - Wyczyść historię\n8 - Zakończ\n");
-    int nrPrzgody = int.Parse(Console.ReadLine()!);
+    
+    if (!int.TryParse(Console.ReadLine(), out int nrPrzygody))
+    {
+        Console.WriteLine("Niezrozumiała akcja\n");
+        continue;
+    }
 
-    switch (nrPrzgody)
+    switch (nrPrzygody)
     {
         case 1:
             historia.Add("Eksploracja");
@@ -298,22 +337,124 @@ while (true)
             historia.Add("Znaleziono przedmiot");
             break;
         case 4:
-            foreach (string element in historia)
+            if (historia.Count == 0)
             {
-                Console.WriteLine(element);
+                Console.WriteLine("Historia jest pusta.");
+            }
+            else
+            {
+                foreach (string element in historia)
+                {
+                    Console.WriteLine(element);
+                }
             }
             break;
         case 5:
-            for (int i = -1; i >= -3; i--)
+            if (historia.Count == 0)
             {
-                Console.WriteLine(historia[i]);
+                Console.WriteLine("Historia jest pusta.");
             }
-
+            else
+            {
+                int startIndex = historia.Count > 3 ? historia.Count - 3 : 0;
+                for (int i = startIndex; i < historia.Count; i++)
+                {
+                    Console.WriteLine(historia[i]);
+                }
+            }
+            break;
+        case 6:
+            Console.WriteLine("Podaj nazwę akcji do policzenia:");
+            string szukanaAkcja = Console.ReadLine() ?? "";
+            int licznik = 0;
+            foreach (string element in historia)
+            {
+                if (element.Equals(szukanaAkcja, StringComparison.OrdinalIgnoreCase))
+                {
+                    licznik++;
+                }
+            }
+            Console.WriteLine($"Liczba wystąpień '{szukanaAkcja}': {licznik}");
+            break;
+        case 7:
+            Console.WriteLine("Potwierdź t/n: ");
+            string wybor = (Console.ReadLine() ?? "").Trim().ToLower();
+            switch (wybor)
+            {
+                case "t":
+                    historia.Clear();
+                    Console.WriteLine("Historia wyczyszczona");
+                    break;
+                case "n":
+                    Console.WriteLine("Historia została");
+                    break;
+                default:
+                    Console.WriteLine("Niezrozumiała akcja");
+                    break;
+            }
+            break;
+        case 8:
+            zakonczyc = true;
+            break;
+        default:
+            Console.WriteLine("Niezrozumiała akcja");
             break;
     }
+
+    Console.WriteLine();
 }
-//Dokończyć
 */
-//Wdomu
+// Dokonczyc
 // Zadanie 8
+/*
+int punktyZycia = 80;
+int maksymalneZdrowie = 100;
+int zloto = 10;
+int numerTury = 1;
+int liczbaEksploracji = 0;
+bool graDziala = true;
+
+string[] znaleziska =
+{
+    "Mikstura",
+    "Klucz",
+    "Pochodnia",
+    "Zwój"
+};
+
+List<string> plecak = new List<string>
+{
+    "Miecz",
+    "Mikstura"
+};
+
+List<string> historia = new List<string>();
+
+while (graDziala)
+{
+    Console.WriteLine("=== HELLO ADVENTURER 5.0 ===");
+    Console.WriteLine("Tura:");
+    Console.WriteLine("Bohater:");
+    Console.WriteLine("Zdrowie:");
+    Console.WriteLine("");
+    Console.WriteLine("1 - Eksploruj loch");
+    Console.WriteLine("2 - Pokaż plecak");
+    Console.WriteLine("3 - Użyj przedmiotu");
+    Console.WriteLine("4 - Dodaj znalezisko");
+    Console.WriteLine("5 - Wyrzuć przedmiot");
+    Console.WriteLine("6 - Pokaż historię");
+    Console.WriteLine("7 - Pokaż statystyki wyprawy");
+    Console.WriteLine("8 - Zakończ grę");
+
+    int wybor;
+    while (!int.TryParse(Console.ReadLine(), out wybor))
+    {
+        Console.WriteLine("Wpisz poprawna liczbe od 1 do 8");
+    }
+    switch (wybor)
+    {
+        
+    }
+}
+*/
 // Zadanie 9
